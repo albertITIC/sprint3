@@ -6,37 +6,41 @@ def usuari_schema(usuari) -> dict:
         "correu": usuari.correu,
         "contrassenya": usuari.contrassenya,
         "tipus": usuari.tipus,
-        "estat": assistencia_schema.estat,
+        # "estat": assistencia_schema.estat
+        "estat": usuari.estat
     }
 
 def assistencia_schema(assistencia) -> dict:
     return {
-        "idUsuari": usuari_schema.idUsuari,
+        # "idUsuari": usuari_schema.idUsuari,
+        "idUsuari": assistencia.idUsuari,
         "estat": assistencia.estat,
         "hEntrada": assistencia.horaEntrada,
         "hSortida": assistencia.horaSortida,
-        "dia": assistencia.dia,
+        "dia": assistencia.dia
     }
 
 def grup_schema(grup) -> dict:
     return {
         "idGrup": grup.idGrup,
         "nomGrup": grup.nomGrup,
-        "nomClasse": classe_schema.nomClasse,
+        "nomClasse": grup.nomClasse
     }
 
 def classe_schema(classe) -> dict:
     return {
         "idClasse": classe.idClasse,
         "nomClasse": classe.nomClasse,
-        "nomGrup": grup_schema.nomGrup,
+        # "nomGrup": grup_schema.nomGrup
+        "nomGrup": classe.nomGrup
     }
 
 def modul_schema(modul) -> dict:
     return {
         "idModul": modul.idModul,
         "nomModul": modul.nomModul,
-        "idClasse": classe_schema.idClasse,
+        # "idClasse": classe_schema.idClasse
+        "idClasse": modul.idClasse
     }
 def usuaris_schema(usuaris) -> dict:
     return [usuari_schema(usuari) for usuari in usuaris]

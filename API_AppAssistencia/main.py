@@ -1,11 +1,10 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, File, UploadFile
+
 import db_assistencia
 from typing import List, Optional
 
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, File, UploadFile
-
 app = FastAPI()
 
 app.add_middleware(
@@ -25,10 +24,41 @@ class tablaUsuari(BaseModel):
     tipusUsuari: str
     estat: str
 
+class tablaAssistencia(BaseModel):
+    idUsuari: int
+    estat: str
+    hEntrada: str
+    hSortida: str
+    dia: str
+
+class tablaGrup(BaseModel):
+    idGrup: int
+    nomGrup: str
+    nomClasse: str
+    
+class tablaClasse(BaseModel):
+    idClasse: int
+    nomClasse: str
+    nomGrup: str
+    
+class tablaClasse(BaseModel):
+    idModul: int
+    nomModul: str
+    idClasse: str
+             
 @app.get("/usuaris/{id}", response_model=tablaUsuari)
-def read_usuari_id(id:int):
-    if db_assistencia.read_id(id) is not None:
-        usuari = tablaUsuari(db_assistencia.read_id(id))
-    else:
-        raise HTTPException(status_code=404, detail="Item not found")
-    return usuari
+def read_usuari_id(id: int):
+    try:
+        # Llama a la función en db_assistencia para obtener datos del usuario
+        usuari = db_assistencia.fetch_usuari_by_id(id)
+
+        if usuari is None:
+            # Lanzar excepción si no se encuentra el usuario
+            raise HTTPException(status_code=404, detail="Usuari no trobat")
+
+        # Retorna el usuario como un modelo Pydantic
+        return tablaUsuari(**usuari)
+
+    except Exception as e:
+        # Manejo genérico de errores
+        raise HTTPException(status_code=500, detail=f"Error intern: {e}")
