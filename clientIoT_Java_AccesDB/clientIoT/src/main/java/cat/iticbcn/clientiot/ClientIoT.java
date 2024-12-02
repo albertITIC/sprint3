@@ -4,7 +4,8 @@
 
 package cat.iticbcn.clientiot;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -12,9 +13,9 @@ import java.sql.*;
  */
 public class ClientIoT {
 
-    static final String url = "jdbc:mysql://10.2.12.239:3306/alumnat"; 
+    static final String url = "jdbc:mysql://localhost:3306/alumnat"; //mariadb, ip del server i nom de la ddbb
     static final String usuario = "root"; 
-    static final String contrasena = "1234"; 
+    static final String contrasena = "pirineus"; 
 
     public static void main(String[] args) {
 
