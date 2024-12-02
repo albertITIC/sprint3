@@ -8,13 +8,13 @@ import java.sql.*;
 
 /**
  *
- * @author david
+ * @author DAW I DAM
  */
 public class ClientIoT {
 
-    static final String url = "jdbc:mysql://10.2.12.239:3306/alumnat"; 
+    static final String url = "jbdc:mysql://192.168.41.5:3306/AppAssistenciesS2"; 
     static final String usuario = "root"; 
-    static final String contrasena = "1234"; 
+    static final String contrasena = "pirineus"; 
 
     public static void main(String[] args) {
 
