@@ -1,12 +1,13 @@
 def usuari_schema(usuari) -> dict:
     return {
-        "idUsuari": usuari[0],
-        "nomUsuari": usuari[1],
-        "cognomUsuari": usuari[2],
-        "correu": usuari[3],
-        "contrassenya": usuari[4],
-        "tipus": usuari[5],
-        "estat": usuari[6]
+        "nuid": usuari[0], #
+        "idUsuari": usuari[1],
+        "nomUsuari": usuari[2],
+        "cognomUsuari": usuari[3],
+        "correu": usuari[4],
+        "contrassenya": usuari[5],
+        "tipus": usuari[6],
+        "estat": usuari[7]
     }
 
 def assistencia_schema(assistencia) -> dict:
