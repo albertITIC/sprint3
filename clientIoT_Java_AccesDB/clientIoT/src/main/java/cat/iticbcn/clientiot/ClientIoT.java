@@ -9,11 +9,11 @@ import java.sql.SQLException;
 
 /**
  *
- * @author david
+ * @author DAW I DAM
  */
 public class ClientIoT {
 
-    static final String url = "jdbc:mysql://localhost:3306/alumnat"; //mariadb, ip del server i nom de la ddbb
+    static final String url = "jbdc:mysql://192.168.41.5:3306/AppAssistenciesS2"; 
     static final String usuario = "root"; 
     static final String contrasena = "pirineus"; 
 
