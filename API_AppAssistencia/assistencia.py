@@ -12,11 +12,15 @@ def usuari_schema(usuari) -> dict:
 
 def assistencia_schema(assistencia) -> dict:
     return {
-        "idUsuari": assistencia[0],
-        "estat": assistencia[1],
-        "hEntrada": assistencia[2],
-        "hSortida": assistencia[3],
-        "dia": assistencia[4]
+        "idAssistencia": assistencia[0],
+        "idGrup": assistencia[1],
+        "idClasse": assistencia[2],
+        "idModul": assistencia[3],
+        "idUsuari": assistencia[4],
+        "estat": assistencia[5],
+        "hEntrada": assistencia[6],
+        "hSortida": assistencia[7],
+        "dia": assistencia[8]
     }
 
 def grup_schema(grup) -> dict:
