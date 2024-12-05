@@ -17,6 +17,7 @@ app.add_middleware(
 )
 
 class tablaUsuari(BaseModel):
+    nuid: int # -> el que identifica la targeta que rebem AWS
     idUsuari: int
     nomUsuari: str
     cognomUsuari: str

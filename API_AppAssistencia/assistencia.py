@@ -1,25 +1,22 @@
 def usuari_schema(usuari) -> dict:
     return {
-        "idUsuari": usuari[0],
-        "nomUsuari": usuari[1],
-        "cognomUsuari": usuari[2],
-        "correu": usuari[3],
-        "contrassenya": usuari[4],
-        "tipus": usuari[5],
-        "estat": usuari[6]
+        "nuid": usuari[0],
+        "idUsuari": usuari[1],
+        "nomUsuari": usuari[2],
+        "cognomUsuari": usuari[3],
+        "correu": usuari[4],
+        "contrassenya": usuari[5],
+        "tipus": usuari[6],
+        "estat": usuari[7]
     }
 
 def assistencia_schema(assistencia) -> dict:
     return {
-        "idAssistencia": assistencia[0],
-        "idGrup": assistencia[1],
-        "idClasse": assistencia[2],
-        "idModul": assistencia[3],
-        "idUsuari": assistencia[4],
-        "estat": assistencia[5],
-        "hEntrada": assistencia[6],
-        "hSortida": assistencia[7],
-        "dia": assistencia[8]
+        "idUsuari": assistencia[0],
+        "estat": assistencia[1],
+        "hEntrada": assistencia[2],
+        "hSortida": assistencia[3],
+        "dia": assistencia[4]
     }
 
 def grup_schema(grup) -> dict:

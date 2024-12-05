@@ -5,9 +5,9 @@ def db_client():
     
     try:
         dbname = "assistencia"
-        user = "root"
-        password = "1234"
-        host = "localhost"
+        user = "usuari2"
+        password = "pirineus"
+        host = "192.168.41.5"
         port = "3306"
         collation = "utf8mb4_general_ci"
         
