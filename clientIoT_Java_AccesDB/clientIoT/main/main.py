@@ -10,9 +10,9 @@ CLIENT_ID = "ESP32-thing"                                    # Identificador ún
 TOPIC = "esp32/esp32-to-aws"                                 # Topic al que te suscribirás
 RESPONSE_TOPIC = "esp32/esp32-to-aws/response"               # Topic para enviar la confirmación
 # Tener en cuenta que el path cambia.
-CERTIFICATE_PATH = "D:\Usuaris\Albert PC\M13-Projecte\sprint3\clientIoT_Java_AccesDB\clientIoT\client1certs\client1-certificate.pem.crt"
-PRIVATE_KEY_PATH = "D:\Usuaris\Albert PC\M13-Projecte\sprint3\clientIoT_Java_AccesDB\clientIoT\client1certs\client1-private.pem.key"
-CA_PATH = "D:\Usuaris\Albert PC\M13-Projecte\sprint3\clientIoT_Java_AccesDB\clientIoT\client1certs\AmazonRootCA1.pem"
+CERTIFICATE_PATH = "/home/isard/Escriptori/Projecte/sprint3/clientiot/client1certs/client1-certificate.pem.crt"
+PRIVATE_KEY_PATH = "clientiot/client1certs/client1-private.pem.key"
+CA_PATH = "/home/isard/Escriptori/Projecte/sprint3/clientiot/client1certs/AmazonRootCA1.pem"
 
 # Configuración de MySQL
 DB_HOST = "localhost" # ip de xia
