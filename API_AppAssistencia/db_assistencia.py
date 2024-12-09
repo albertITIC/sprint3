@@ -21,7 +21,8 @@ def fetch_all_usuaris():
                 "correu": usuari[3],
                 "contrassenya": usuari[4],
                 "tipus": usuari[5],
-                "estat": usuari[6]
+                "estat": usuari[6],
+                "NUID": usuari[7]
             })
         
     except Exception as e:
@@ -49,7 +50,9 @@ def fetch_usuari_by_id(id_usuari: int):
             "correu": usuari[3],
             "contrassenya": usuari[4],
             "tipus": usuari[5],
-            "estat": usuari[6] }
+            "estat": usuari[6],
+            "NUID": usuari[7],
+            }
     except Exception as e:
         return {"status": -1, "message": f"Error de connexió:{e}" }
     finally:
