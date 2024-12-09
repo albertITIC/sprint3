@@ -6,7 +6,7 @@ package cat.iticbcn.clientiot;
 
 /**
  *
- * @author david
+ * @author DAW I DAM
  */
 import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotMqttClient;
@@ -17,12 +17,11 @@ import com.amazonaws.services.iot.client.sample.sampleUtil.SampleUtil.KeyStorePa
 public class DispositiuIot{
 
     //private static final String FICH_CLAU_PUBLICA = "./client1certs/";
-    private static final String FICH_CLAU_PRIVADA = "C:/Users/antot/Downloads/clientIoT_java/clientIoT/client1certs/client1-private.pem.key";
-    private static final String FICH_CERT_DISP_IOT = "C:/Users/antot/Downloads/clientIoT_java/clientIoT//client1certs/client1-certificate.pem.crt";
-    private static final String ENDPOINT = "a2mzzcez8i1shq-ats.iot.us-east-1.amazonaws.com";
-    //public static final String TOPIC = "iticbcn/espnode01/pub";
-    public static final String TOPIC = "iticbcn/#";
-    public static final String CLIENT_ID = "client1";
+    private static final String FICH_CLAU_PRIVADA = "/home/isard/Escriptori/Projecte/sprint3/clientIoT_Java_AccesDB/clientIoT/client1certs/client1-private.pem.key";
+    private static final String FICH_CERT_DISP_IOT = "/home/isard/Escriptori/Projecte/sprint3/clientIoT_Java_AccesDB/clientIoT/client1certs/client1-certificate.pem.crt";
+    private static final String ENDPOINT = "a3hvwfbfayc3f6-ats.iot.us-east-1.amazonaws.com";
+    public static final String TOPIC = "esp32/esp32-to-aws";
+    public static final String CLIENT_ID = "ESP32-thing";
     public static final AWSIotQos TOPIC_QOS = AWSIotQos.QOS0;
 
     private static AWSIotMqttClient awsIotClient;

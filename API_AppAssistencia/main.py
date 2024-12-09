@@ -17,7 +17,6 @@ app.add_middleware(
 )
 
 class tablaUsuari(BaseModel):
-    nuid: int # -> el que identifica la targeta que rebem AWS
     idUsuari: int
     nomUsuari: str
     cognomUsuari: str
@@ -25,6 +24,7 @@ class tablaUsuari(BaseModel):
     contrassenyaUsuari: str
     tipusUsuari: str
     estat: str
+    nuid: int # -> el que identifica la targeta que rebem AWS
 
 @app.get("/usuaris/{id}", response_model=tablaUsuari)
 def read_usuari_id(id:int):
