@@ -5,32 +5,48 @@ import json
 import pymysql
 
 # Configuración de AWS IoT
-ENDPOINT = "a2mzzcez8i1shq-ats.iot.us-east-1.amazonaws.com"  # Tu endpoint MQTT
-CLIENT_ID = "ESP32-thing"                                    # Identificador único para tu dispositivo
-TOPIC = "esp32/esp32-to-aws"                                 # Topic al que te suscribirás
-RESPONSE_TOPIC = "esp32/esp32-to-aws/response"               # Topic para enviar la confirmación
+ENDPOINT = "a3hvwfbfayc3f6-ats.iot.us-east-1.amazonaws.com"   # Tu endpoint MQTT
+CLIENT_ID = "iotconsole-210cdda9-5315-48d4-a906-eabcb96eb17d" # Identificador único para tu dispositivo
+TOPIC = "esp32/esp32-to-aws"                                  # Topic al que te suscribirás
+RESPONSE_TOPIC = "esp32/esp32-to-aws/response"                # Topic para enviar la confirmación
 # Tener en cuenta que el path cambia.
-CERTIFICATE_PATH = "/home/isard/Escriptori/Projecte/sprint3/clientiot/client1certs/client1-certificate.pem.crt"
-PRIVATE_KEY_PATH = "clientiot/client1certs/client1-private.pem.key"
-CA_PATH = "/home/isard/Escriptori/Projecte/sprint3/clientiot/client1certs/AmazonRootCA1.pem"
+CERTIFICATE_PATH = "/home/isard/Escriptori/Projecte/sprint3/certificats_aws/client1-certificate.key"
+PRIVATE_KEY_PATH = "/home/isard/Escriptori/Projecte/sprint3/certificats_aws/client1.private.key"
+CA_PATH = "/home/isard/Escriptori/Projecte/sprint3/certificats_aws/AmazonRootCA1.key"
 
 # Configuración de MySQL
-DB_HOST = "localhost" # ip de xia
-DB_USER = "Usuari1" 
+DB_HOST = "192.168.41.5" 
+DB_USER = "usuari1" 
 DB_PASSWORD = "pirineus"
-DB_NAME = "AppAssistenciaP2"
+DB_NAME = "AppAssistenciesS2"
 
 # Callback para cuando se recibe un mensaje
-def on_message_received(topic, payload, **kwargs):
-    print(f"Mensaje recibido en el topic '{topic}': {payload.decode()}")
-    # Procesar el mensaje y guardarlo en la base de datos
+# def on_message_received(topic, payload, **kwargs):
+#     print(f"Mensaje recibido en el topic '{topic}': {payload.decode()}")
+#     # Procesar el mensaje y guardarlo en la base de datos
+#     try:
+#         data = json.loads(payload)
+#         insertar_en_base_de_datos(data)
+#         enviar_confirmacion(data['nuid'], "nuid rebut")
+#     except Exception as e:
+#         print(f"Error procesando el mensaje: {e}")
+#         enviar_confirmacion(data['NUID'], "error", str(e))
+def on_message_received(topic, payload, dup, qos, retain):
     try:
-        data = json.loads(payload)
-        insertar_en_base_de_datos(data)
-        enviar_confirmacion(data['NUID'], "NUID rebut")
-    except Exception as e:
+        data = json.loads(payload)  # Convertir el payload en un diccionario
+        
+        # Verifica si la clave 'nuid' o 'NUID' existe
+        nuid = data.get('nuid') or data.get('NUID')
+        if nuid is None:
+            raise KeyError("Clave 'nuid' o 'NUID' no encontrada en el mensaje.")
+        
+        enviar_confirmacion(nuid, "ok", "Procesado correctamente")
+    except KeyError as e:
         print(f"Error procesando el mensaje: {e}")
-        enviar_confirmacion(data['NUID'], "error", str(e))
+        enviar_confirmacion("desconocido", "error", str(e))
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
 
 # Conectar a la base de datos y guardar datos
 def insertar_en_base_de_datos(data):
@@ -43,18 +59,18 @@ def insertar_en_base_de_datos(data):
         )
         with conexion.cursor() as cursor:
             # Comprobar si el NUID está asociado a un usuario
-            query_buscar_usuario = "SELECT NUID FROM usuarios WHERE NUID = %s"
+            query_buscar_usuario = "SELECT NUID FROM Usuari WHERE NUID = %s"
             cursor.execute(query_buscar_usuario, (data['NUID'],))
             resultado = cursor.fetchone()
 
             if resultado:
-                usuario_id = resultado[0]  # Extraer el ID del usuario
+                idUsuari = resultado[0]  # Extraer el ID del usuario
                 # Insertar un registro en la tabla Asistencias
                 query_insertar_asistencia = """
-                    INSERT INTO asistencias (idAssistencia, idUsuari, estat, hEntrada, hSortida, dia)
+                    INSERT INTO Assistencia (idAssistencia, idUsuari, estat, hEntrada, hSortida, dia)
                     VALUES (%s, %s, %s, CURTIME(), NULL, CURDATE())
                 """
-                cursor.execute(query_insertar_asistencia, (usuario_id,))
+                cursor.execute(query_insertar_asistencia, (idUsuari,))
                 conexion.commit()
                 print("Datos insertados correctamente en la base de datos.")
             else:
