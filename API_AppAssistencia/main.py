@@ -41,5 +41,8 @@ def read_usuari_id(id:int):
 
 @app.get("/marcatge/{id}")
 def read_marcatges(id:int):
-    if db_assistencia.read_id(id) is not None:
-        marcatge = tablaUsuari(db_assistencia_)
+    if db_assistencia.fetch_usuari_marcatge(id) is not None:
+        marcatge = assistencia.usuari_schema(db_assistencia.fetch_usuari_marcatge(id))
+    else:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return marcatge
