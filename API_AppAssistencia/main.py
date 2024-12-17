@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query
 import db_assistencia
 from typing import List, Optional
-
+import assistencia
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, File, UploadFile
@@ -25,11 +25,21 @@ class tablaUsuari(BaseModel):
     contrassenyaUsuari: str
     tipusUsuari: str
     estat: str
+    nuid: int
+
+@app.get("/")
+def read_root():
+    return {"Assistències API"}
 
 @app.get("/usuaris/{id}", response_model=tablaUsuari)
 def read_usuari_id(id:int):
-    if db_assistencia.read_id(id) is not None:
-        usuari = tablaUsuari(db_assistencia.read_id(id))
+    if db_assistencia.fetch_usuari_by_id(id) is not None:
+        tablaUsuari = assistencia.usuari_schema(db_assistencia.fetch_usuari_by_id(id))
     else:
         raise HTTPException(status_code=404, detail="Item not found")
-    return usuari
+    return tablaUsuari
+
+@app.get("/marcatge/{id}")
+def read_marcatges(id:int):
+    if db_assistencia.read_id(id) is not None:
+        marcatge = tablaUsuari(db_assistencia_)

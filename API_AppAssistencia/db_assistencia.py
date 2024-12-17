@@ -2,6 +2,7 @@ from fastapi import Query
 from client import db_client
 from typing import Optional
 
+# Consulta de tots els usuaris
 def fetch_all_usuaris():
     try:
         conn = db_client()
@@ -31,6 +32,8 @@ def fetch_all_usuaris():
         conn.close()
     return usuaris_list
 
+
+# Consulta dels usuaris per id
 def fetch_usuari_by_id(id_usuari: int):
     try:
         conn = db_client()
@@ -58,3 +61,20 @@ def fetch_usuari_by_id(id_usuari: int):
     finally:
         conn.close()
     return usuari_list
+
+def fetch_usuari_marcatge(id_usuari:int):
+    try:
+        conn = db_client()
+        cur = conn.cursor()
+
+        query = "SELECT nuid FROM usuari WHERE idUsuari = %s"
+        cur.execute(query, (id_usuari,))
+        marcatge = cur.fetchone()
+
+        if marcatge is None:
+            return {"status": -1, "message": "Marcatge no trobat"}
+    except Exception as e:
+        return {"status": -1, "message": f"Error de connexió:{e}" }
+    finally:
+        conn.close()
+    return marcatge
